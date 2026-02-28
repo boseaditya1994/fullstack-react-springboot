@@ -4,6 +4,7 @@ import com.eazybytes.eazystore.dto.ProductDto;
 import com.eazybytes.eazystore.dto.UserDto;
 import com.eazybytes.eazystore.service.IProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 
@@ -16,6 +17,13 @@ public class DummyController {
     @PostMapping("/create-user")
     public String createUser(@RequestBody UserDto userDto) {
         System.out.println(userDto);
+        return "User created successfully";
+    }
+
+    @PostMapping("/request-entity")
+    public String createUserWithEntity(RequestEntity<UserDto> requestEntity ) {
+        HttpHeaders headers = requestEntity.getHeaders();
+        UserDto userDto =requestEntity.getBody();
         return "User created successfully";
     }
 
