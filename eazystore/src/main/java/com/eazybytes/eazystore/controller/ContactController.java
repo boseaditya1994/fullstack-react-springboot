@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContactController {
 
-    private final IContactService IContactService;
+    private final IContactService iContactService;
 
     @PostMapping
     public ResponseEntity<String> saveContact(
             @Valid @RequestBody ContactRequestDto contactRequestDto) {
-        IContactService.saveContact(contactRequestDto);
+        iContactService.saveContact(contactRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Request processed successfully");
     }
