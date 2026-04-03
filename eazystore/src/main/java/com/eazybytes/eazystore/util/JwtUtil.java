@@ -1,6 +1,7 @@
 package com.eazybytes.eazystore.util;
 
 import com.eazybytes.eazystore.constants.ApplicationConstants;
+import com.eazybytes.eazystore.entity.Customer;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -18,44 +19,19 @@ public class JwtUtil {
 
     private final Environment env;
 
-//    public String generateJwtToken(Authentication authentication) {
-//        String jwt = "";
-//        String secret = env.getProperty(ApplicationConstants.JWT_SECRET_KEY,
-//                ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
-//        SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-//        User fetchedUser = (User) authentication.getPrincipal();
-//        jwt = Jwts.builder().issuer("Eazy Store").subject("JWT Token")
-//                .claim("username", fetchedUser.getUsername())
-//                .issuedAt(new java.util.Date())
-//                .expiration(new java.util.Date((new java.util.Date()).getTime() + 60 * 60 * 1000))
-//                .signWith(secretKey).compact();
-//        return jwt;
-//    }
-
-    public String generateJwtToken(Authentication authentication) {
-
+    public String generateJwtToken(Authentication authentication){
+        String jwt = "";
         String secret = env.getProperty(ApplicationConstants.JWT_SECRET_KEY,
                 ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
-
         SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-
-        Object principal = authentication.getPrincipal();
-
-        String username;
-
-        if (principal instanceof User user) {
-            username = user.getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        return Jwts.builder()
-                .issuer("Eazy Store")
-                .subject("JWT Token")
-                .claim("username", username)
+        Customer fetchedCustomer = (Customer) authentication.getPrincipal();
+        jwt = Jwts.builder().issuer("Eazy Store").subject("JWT Token")
+                .claim("username", fetchedCustomer.getName())
+                .claim("email", fetchedCustomer.getEmail())
+                .claim("mobileNumber", fetchedCustomer.getMobileNumber())
                 .issuedAt(new java.util.Date())
-                .expiration(new java.util.Date(System.currentTimeMillis() + 3600000))
-                .signWith(secretKey)
-                .compact();
+                .expiration(new java.util.Date((new java.util.Date()).getTime() + 60 * 60 * 1000))
+                .signWith(secretKey).compact();
+        return jwt;
     }
 }

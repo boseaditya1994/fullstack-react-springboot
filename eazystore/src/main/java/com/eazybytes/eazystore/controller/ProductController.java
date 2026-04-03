@@ -27,7 +27,7 @@ public class ProductController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception exception,
-                                                                  WebRequest webRequest) {
+            WebRequest webRequest) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false), HttpStatus.SERVICE_UNAVAILABLE,
                 exception.getMessage(), LocalDateTime.now());

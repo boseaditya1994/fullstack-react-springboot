@@ -29,8 +29,8 @@ public class EazyStoreUsernamePwdAuthenticationProvider implements Authenticatio
                 () -> new UsernameNotFoundException(
                         "User details not found for the user: " + username)
         );
-        if (passwordEncoder.matches(pwd, customer.getPasswordHash())) {
-            return new UsernamePasswordAuthenticationToken(customer, null,
+        if(passwordEncoder.matches(pwd, customer.getPasswordHash())) {
+            return new UsernamePasswordAuthenticationToken(customer,null,
                     Collections.emptyList());
         } else {
             throw new BadCredentialsException("Invalid password!");

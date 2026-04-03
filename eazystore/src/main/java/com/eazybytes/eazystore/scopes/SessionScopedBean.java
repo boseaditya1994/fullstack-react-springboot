@@ -9,13 +9,12 @@ import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 @SessionScope
-@Getter
-@Setter
+@Getter @Setter
 @Slf4j
 public class SessionScopedBean {
     private String userName;
 
     public SessionScopedBean() {
-        log.info("SessionScopedBean initialized");
+      log.info("SessionScopedBean initialized");
     }
 }

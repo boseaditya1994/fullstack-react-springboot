@@ -30,7 +30,7 @@ public class DummyController {
 
     @GetMapping("/headers")
     public String readHeaders(@RequestHeader HttpHeaders headers) {
-        List<String> location = headers.get("User-Location");
+        List<String> location= headers.get("User-Location");
         return "Recevied headers with value : " + headers.toString();
     }
 
@@ -41,18 +41,18 @@ public class DummyController {
     }
 
     @GetMapping("/multiple-search")
-    public String multipleSearch(@RequestParam Map<String, String> params) {
+    public String multipleSearch(@RequestParam Map<String,String> params) {
         return "Searching for user : " + params.get("firstName") + " " + params.get("lastName");
     }
 
     @GetMapping({"/user/{userId}/posts/{postId}", "/user/{userId}"})
     public String getUser(@PathVariable(name = "userId") String id,
-                          @PathVariable(required = false) String postId) {
+            @PathVariable(required = false) String postId) {
         return "Searching for user : " + id + " and post : " + postId;
     }
 
     @GetMapping({"/user/map/{userId}/posts/{postId}", "/user/map/{userId}"})
-    public String getUserUsingMap(@PathVariable Map<String, String> pathVariables) {
+    public String getUserUsingMap(@PathVariable Map<String,String> pathVariables) {
         return "Searching for user : " + pathVariables.get("userId") + " and post : "
                 + pathVariables.get("postId");
     }

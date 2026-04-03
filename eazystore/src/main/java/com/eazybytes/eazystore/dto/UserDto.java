@@ -6,8 +6,10 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class UserDto {
-    private long userId;
+
+    private Long userId;
     private String name;
     private String email;
     private String mobileNumber;
+
 }
