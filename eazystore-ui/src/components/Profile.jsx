@@ -319,8 +319,8 @@ export async function profileLoader() {
   } catch (error) {
     throw new Response(
       error.response?.data?.errorMessage ||
-        error.message ||
-        "Failed to fetch profile details. Please try again.",
+      error.message ||
+      "Failed to fetch profile details. Please try again.",
       { status: error.status || 500 }
     );
   }
@@ -348,8 +348,8 @@ export async function profileAction({ request }) {
     }
     throw new Response(
       error.response?.data?.errorMessage ||
-        error.message ||
-        "Failed to save profile details. Please try again.",
+      error.message ||
+      "Failed to save profile details. Please try again.",
       { status: error.status || 500 }
     );
   }

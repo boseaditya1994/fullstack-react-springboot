@@ -64,8 +64,8 @@ const routeDefinitions = createRoutesFromElements(
       <Route path="/orders" element={<Orders />} />
       <Route path="/admin/orders" element={<AdminOrders />} />
       <Route path="/admin/messages" element={<Messages />} />
-    </Route>
-  </Route>
+    </Route >
+  </Route >
 );
 
 const appRouter = createBrowserRouter(routeDefinitions);
@@ -89,5 +89,5 @@ createRoot(document.getElementById("root")).render(
         transition={Bounce}
       />
     </Elements>
-  </StrictMode>
+  </StrictMode >
 );
