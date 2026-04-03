@@ -20,6 +20,6 @@ public class ApplicationScopedBean {
     }
 
     public ApplicationScopedBean() {
-        log.info("ApplicationScopedBean initialized");
+      log.info("ApplicationScopedBean initialized");
     }
 }
