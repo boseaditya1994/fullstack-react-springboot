@@ -55,7 +55,7 @@ public class EazyStoreSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-             AuthenticationProvider authenticationProvider) {
+            AuthenticationProvider authenticationProvider) {
         var providerManager = new ProviderManager(authenticationProvider);
         return providerManager;
     }
