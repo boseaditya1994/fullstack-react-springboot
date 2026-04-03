@@ -124,8 +124,8 @@ export async function loginAction({ request }) {
     }
     throw new Response(
       error.response?.data?.message ||
-      error.message ||
-      "Failed to login. Please try again.",
+        error.message ||
+        "Failed to login. Please try again.",
       { status: error.response?.status || 500 }
     );
   }

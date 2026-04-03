@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> apiLogin(@RequestBody
-                                                     LoginRequestDto loginRequestDto) {
+    LoginRequestDto loginRequestDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(new
                     UsernamePasswordAuthenticationToken(loginRequestDto.username(),
@@ -76,14 +76,14 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequestDto registerRequestDto) {
 
         CompromisedPasswordDecision decision = compromisedPasswordChecker.check(registerRequestDto.getPassword());
-        if (decision.isCompromised()) {
+        if(decision.isCompromised()) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("password", "Choose a strong password"));
         }
-        Optional<Customer> existingCustomer = customerRepository.findByEmailOrMobileNumber
-                (registerRequestDto.getEmail(), registerRequestDto.getMobileNumber());
-        if (existingCustomer.isPresent()) {
+        Optional<Customer> existingCustomer =  customerRepository.findByEmailOrMobileNumber
+                (registerRequestDto.getEmail(),registerRequestDto.getMobileNumber());
+        if(existingCustomer.isPresent()) {
             Map<String, String> errors = new HashMap<>();
             Customer customer = existingCustomer.get();
 
@@ -109,7 +109,7 @@ public class AuthController {
     }
 
     private ResponseEntity<LoginResponseDto> buildErrorResponse(HttpStatus status,
-                                                                String message) {
+            String message) {
         return ResponseEntity
                 .status(status)
                 .body(new LoginResponseDto(message, null, null));
