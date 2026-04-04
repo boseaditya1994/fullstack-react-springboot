@@ -27,16 +27,18 @@ import Profile, {
   profileAction,
   profileLoader,
 } from "./components/Profile.jsx";
-import Orders from "./components/Orders.jsx";
-import AdminOrders from "./components/admin/AdminOrders.jsx";
-import Messages from "./components/admin/Messages.jsx";
+import Orders, { ordersLoader } from "./components/Orders.jsx";
+import AdminOrders, {
+  adminOrdersLoader,
+} from "./components/admin/AdminOrders.jsx";
+import Messages, { messagesLoader } from "./components/admin/Messages.jsx";
 import Register, { registerAction } from "./components/Register.jsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import OrderSuccess from "./components/OrderSuccess.jsx";
 
 const stripePromise = loadStripe(
-  "pk_test_51TI5slFD70tls9TnIN1tSEfXVcB2xB2lIYiMfIcMa4kaTtmFFIkTCieC3g3aLnTvLCzZEijXldKWytSOxDarxOCB002eTPxc8t"
+  "pk_test_51RJQvF4PbYqEP0SGCcnUiXIBFtwmjlfv7CvYdwgLRyrs3pLxejSAYED3goAAkxwKVkgP70GvS0LkzhIHWSfpHWYE00jR1SrCza"
 );
 
 const routeDefinitions = createRoutesFromElements(
@@ -61,11 +63,19 @@ const routeDefinitions = createRoutesFromElements(
           return !actionResult?.success;
         }}
       />
-      <Route path="/orders" element={<Orders />} />
-      <Route path="/admin/orders" element={<AdminOrders />} />
-      <Route path="/admin/messages" element={<Messages />} />
-    </Route >
-  </Route >
+      <Route path="/orders" element={<Orders />} loader={ordersLoader} />
+      <Route
+        path="/admin/orders"
+        element={<AdminOrders />}
+        loader={adminOrdersLoader}
+      />
+      <Route
+        path="/admin/messages"
+        element={<Messages />}
+        loader={messagesLoader}
+      />
+    </Route>
+  </Route>
 );
 
 const appRouter = createBrowserRouter(routeDefinitions);
@@ -89,5 +99,5 @@ createRoot(document.getElementById("root")).render(
         transition={Bounce}
       />
     </Elements>
-  </StrictMode >
+  </StrictMode>
 );
