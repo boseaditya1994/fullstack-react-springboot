@@ -38,8 +38,8 @@ public class EazyStoreUsernamePwdAuthenticationProvider implements Authenticatio
         List<SimpleGrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .toList();
-        if(passwordEncoder.matches(pwd, customer.getPasswordHash())) {
-            return new UsernamePasswordAuthenticationToken(customer,null,
+        if (passwordEncoder.matches(pwd, customer.getPasswordHash())) {
+            return new UsernamePasswordAuthenticationToken(customer, null,
                     authorities);
         } else {
             throw new BadCredentialsException("Invalid password!");
