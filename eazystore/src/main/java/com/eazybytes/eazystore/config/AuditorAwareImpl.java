@@ -25,8 +25,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         if (principal instanceof Customer customer) {
             username = customer.getEmail();
         } else {
-//            username = principal.toString(); // fallback
-            username = authentication.getName();
+            username = principal.toString(); // fallback
         }
 
         return Optional.of(username);
