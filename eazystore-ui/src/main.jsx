@@ -38,7 +38,7 @@ import store from "./store/store.js";
 import { Provider } from "react-redux";
 
 const stripePromise = loadStripe(
-  "pk_test_51RJQvF4PbYqEP0SGCcnUiXIBFtwmjlfv7CvYdwgLRyrs3pLxejSAYED3goAAkxwKVkgP70GvS0LkzhIHWSfpHWYE00jR1SrCza"
+  "pk_test_51TI5s5FKbKcPig8ZFPnb149t0kW6pa6LptmpyNoT4lk8MP09cveTe6zU4oWKpDuolLzKUEcjNgq7nnZldix0ACNR00AHHdZKWz"
 );
 
 const routeDefinitions = createRoutesFromElements(

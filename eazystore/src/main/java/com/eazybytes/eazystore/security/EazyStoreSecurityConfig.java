@@ -2,6 +2,7 @@ package com.eazybytes.eazystore.security;
 
 import com.eazybytes.eazystore.filter.JWTTokenValidatorFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,12 +39,13 @@ public class EazyStoreSecurityConfig {
 
     private final List<String> publicPaths;
 
+    @Value("${eazystore.cors.allowed-origins}")
+    private String allowedOrigins;
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
-        return http.csrf(csrfConfig -> csrfConfig.
-                        csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+        return http.csrf(csrfConfig -> csrfConfig.disable())
                 .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((requests) -> {
                             publicPaths.forEach(path ->
@@ -51,7 +53,7 @@ public class EazyStoreSecurityConfig {
                             requests.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
                             requests.requestMatchers("/eazystore/actuator/**").hasRole("OPS_ENG");
                             requests.requestMatchers("/swagger-ui.html", "/swagger-ui/**",
-                            "/v3/api-docs/**").hasAnyRole("DEV_ENG","QA_ENG");
+                                    "/v3/api-docs/**").hasAnyRole("DEV_ENG", "QA_ENG");
                             requests.anyRequest().hasAnyRole("USER", "ADMIN");
                         }
                 )
@@ -63,7 +65,7 @@ public class EazyStoreSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-             AuthenticationProvider authenticationProvider) {
+            AuthenticationProvider authenticationProvider) {
         var providerManager = new ProviderManager(authenticationProvider);
         return providerManager;
     }
@@ -81,7 +83,7 @@ public class EazyStoreSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        config.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
         config.setAllowedMethods(Collections.singletonList("*"));
         config.setAllowedHeaders(Collections.singletonList("*"));
         config.setAllowCredentials(true);

@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.eazybytes</groupId>
     <artifactId>eazystore</artifactId>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>eazystore</name>
     <description>Backend Project for Eazy Store E-commerce application</description>

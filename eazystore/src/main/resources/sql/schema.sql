@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS products
     created_at  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by  VARCHAR(20)                           NOT NULL,
     updated_at  TIMESTAMP   DEFAULT NULL,
-    updated_by  VARCHAR(20) DEFAULT NULL
+    updated_by  VARCHAR(100) DEFAULT NULL
     );
 
 CREATE TABLE IF NOT EXISTS contacts
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS contacts
     created_at    TIMESTAMP   DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by    VARCHAR(20)                           NOT NULL,
     updated_at    TIMESTAMP   DEFAULT NULL,
-    updated_by    VARCHAR(20) DEFAULT NULL
+    updated_by    VARCHAR(100) DEFAULT NULL
     );
 
 CREATE TABLE IF NOT EXISTS customers
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS customers
     mobile_number VARCHAR(15)                           NOT NULL,
     password_hash VARCHAR(500)                          NOT NULL,
     created_at    TIMESTAMP   DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_by    VARCHAR(20)                           NOT NULL,
+    created_by    VARCHAR(100)                           NOT NULL,
     updated_at    TIMESTAMP   DEFAULT NULL,
-    updated_by    VARCHAR(20) DEFAULT NULL,
+    updated_by    VARCHAR(100) DEFAULT NULL,
     UNIQUE KEY unique_email (email),
     UNIQUE KEY unique_mobile_number (mobile_number)
     );
@@ -51,9 +51,9 @@ CREATE TABLE IF NOT EXISTS address
     postal_code   VARCHAR(20)  NOT NULL,
     country       VARCHAR(100) NOT NULL,
     created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_by    VARCHAR(20)  NOT NULL,
+    created_by    VARCHAR(100)  NOT NULL,
     updated_at    TIMESTAMP    DEFAULT NULL,
-    updated_by    VARCHAR(20)  DEFAULT NULL,
+    updated_by    VARCHAR(100)  DEFAULT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
     );
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS roles (
     created_at TIMESTAMP   DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by VARCHAR(20) NOT NULL,
     updated_at TIMESTAMP   DEFAULT NULL,
-    updated_by VARCHAR(20) DEFAULT NULL,
+    updated_by VARCHAR(100) DEFAULT NULL,
     UNIQUE KEY unique_name (name)
     );
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS orders
     created_at     TIMESTAMP   DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by     VARCHAR(100)                           NOT NULL,
     updated_at     TIMESTAMP   DEFAULT NULL,
-    updated_by     VARCHAR(20) DEFAULT NULL,
+    updated_by     VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
     );
 
@@ -112,7 +112,9 @@ CREATE TABLE IF NOT EXISTS order_items
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by      VARCHAR(100)    NOT NULL,
     updated_at      TIMESTAMP      DEFAULT NULL,
-    updated_by      VARCHAR(20)    DEFAULT NULL,
+    updated_by      VARCHAR(100)    DEFAULT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
     );
+
+update `customer_roles` set role_id=2 where customer_id=2;
