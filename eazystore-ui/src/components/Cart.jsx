@@ -2,13 +2,15 @@ import React, { useMemo } from "react";
 import PageTitle from "./PageTitle";
 import { Link } from "react-router-dom";
 import emptyCartImage from "../assets/util/emptycart.png";
-import { useCart } from "../store/cart-context";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../store/cart-slice";
 import CartTable from "./CartTable";
-import { useAuth } from "../store/auth-context";
+import { selectUser, selectIsAuthenticated } from "../store/auth-slice";
 
 export default function Cart() {
-  const { cart } = useCart();
-  const { isAuthenticated, user } = useAuth();
+  const cart = useSelector(selectCartItems);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
 
   const isAddressIncomplete = useMemo(() => {
     if (!isAuthenticated) return false;
@@ -45,10 +47,11 @@ export default function Cart() {
               <Link
                 to={isAddressIncomplete ? "#" : "/checkout"}
                 className={`py-2 px-4 text-xl font-semibold rounded-sm flex justify-center items-center transition
-                                    ${isAddressIncomplete
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter"
-                  } text-white dark:text-black`}
+                                    ${
+                                      isAddressIncomplete
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter"
+                                    } text-white dark:text-black`}
                 onClick={(e) => {
                   if (isAddressIncomplete) {
                     e.preventDefault();

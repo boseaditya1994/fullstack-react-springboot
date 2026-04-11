@@ -203,8 +203,8 @@ export async function contactAction({ request, params }) {
     }
     throw new Response(
       error.response?.data?.errorMessage ||
-      error.message ||
-      "Failed to submit your message. Please try again.",
+        error.message ||
+        "Failed to submit your message. Please try again.",
       { status: error.status || 500 }
     );
   }
@@ -217,8 +217,8 @@ export async function contactLoader() {
   } catch (error) {
     throw new Response(
       error.response?.data?.errorMessage ||
-      error.message ||
-      "Failed to fetch profile details. Please try again.",
+        error.message ||
+        "Failed to fetch profile details. Please try again.",
       { status: error.status || 500 }
     );
   }

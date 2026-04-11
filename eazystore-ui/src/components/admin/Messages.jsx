@@ -93,8 +93,8 @@ export async function messagesLoader() {
   } catch (error) {
     throw new Response(
       error.response?.data?.errorMessage ||
-      error.message ||
-      "Failed to fetch messages. Please try again.",
+        error.message ||
+        "Failed to fetch messages. Please try again.",
       { status: error.status || 500 }
     );
   }

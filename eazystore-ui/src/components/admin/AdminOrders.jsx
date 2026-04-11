@@ -141,8 +141,8 @@ export async function adminOrdersLoader() {
   } catch (error) {
     throw new Response(
       error.response?.data?.errorMessage ||
-      error.message ||
-      "Failed to fetch orders. Please try again.",
+        error.message ||
+        "Failed to fetch orders. Please try again.",
       { status: error.status || 500 }
     );
   }
